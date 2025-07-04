@@ -10,7 +10,7 @@ DATA_PATH = BASE_DIR / "data" / "daily_sales.csv"
 MODEL_PATH = Path(__file__).with_suffix(".pkl")
  
 def load_data() -> pd.DataFrame:
-    df = pd.read_csv(DATA_PATH, parse_dates=["date"])
+    df = pd.read_csv(DATA_PATH, parse_dates=["date"], date_format=lambda x: pd.to_datetime(x, format="%d-%m-%y"))
     df = df.rename(columns={"date": "ds", "sales": "y"})
     return df.sort_values("ds").dropna()
  

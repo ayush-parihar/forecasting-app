@@ -27,8 +27,16 @@ def index(request):
 def predict_view(request):
     horizon = int(request.GET.get("horizon", 30))
     df_hist = load_data()
-    df_fc   = forecast(horizon).tail(horizon)
+    df_fc = forecast(horizon).tail(horizon)
     return JsonResponse({
-        "hist_chart": _plot_history(df_hist),
-        "fc_chart": _plot_forecast(df_hist, df_fc),
+        "hist": {
+            "x": df_hist["ds"].tolist(),
+            "y": df_hist["y"].tolist()
+        },
+        "forecast": {
+            "x": df_fc["ds"].tolist(),
+            "yhat": df_fc["yhat"].tolist(),
+            "lower": df_fc["yhat_lower"].tolist(),
+            "upper": df_fc["yhat_upper"].tolist()
+        }
     })
