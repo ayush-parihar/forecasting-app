@@ -43,3 +43,4 @@ The dataset is located in the `data/` directory and preprocessed before modeling
  
 ```bash
 git clone https://github.com/ayush-parihar/forecasting-app.git
+bash server.sh
